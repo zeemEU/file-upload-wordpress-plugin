@@ -28,7 +28,7 @@ In the example, replace `YOUR_WOK_ID` your actual wok id (a four-letter id, such
 By default, the file-upload widget shows a file-upload button (and drag & drop area) and after file uploads shows the uploaded files in a list. You can configure the shortcode as follows:
 
 * `[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False"]` Don't show a list of uploaded files
-* `[cloudwok wok_id="YOUR_WOK_ID" show_downloads="True"]` Show all files that have been uploaded so far in a list
+* `[cloudwok wok_id="YOUR_WOK_ID" show_downloads="True"]` List all files that have been uploaded so far
 * `[cloudwok wok_id="YOUR_WOK_ID" show_form="True"]` Show a form where uploaders can enter additional information along with their uploaded files, such as their e-mail and a message.
 
 You can also combine the options of the shortcode, as in this example:
