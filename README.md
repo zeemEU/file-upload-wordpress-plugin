@@ -19,7 +19,9 @@ That's it. Any problems? Send an e-mail to markus@cloudwok.com
 
 ## Use the plugin
 
-Now you can add shortcodes like the following to your pages, blog posts, etc: `[cloudwok wok_id="YOUR_WOK_ID"]`
+Now you can add shortcodes like the following to your pages, blog posts, etc:
+
+`[cloudwok wok_id="YOUR_WOK_ID"]`
 
 In the example, replace `YOUR_WOK_ID` your actual wok id (a four-letter id, such as "AneJ"). 
 
@@ -29,4 +31,6 @@ By default, the file-upload widget shows a file-upload button (and drag & drop a
 * `[cloudwok wok_id="YOUR_WOK_ID" show_downloads="True"]` Show all files that have been uploaded so far in a list
 * `[cloudwok wok_id="YOUR_WOK_ID" show_form="True"]` Show a form where uploaders can enter additional information along with their uploaded files, such as their e-mail and a message.
 
-You can also combine the options of the shortcode, as in this example: `[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False" show_downloads="True" show_form="True"]`
+You can also combine the options of the shortcode, as in this example:
+
+`[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False" show_downloads="True" show_form="True"]`
