@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.1
+Version: 0.2
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -35,32 +35,49 @@ function cloudwok_shortcode( $atts ) {
 	extract( shortcode_atts(
 		array(
 			'wok_id' => '',
+			'show_uploads' => True,
+			'show_downloads' => False,
+			'show_form' => True,
 		), $atts )
 	);
 
+	$show_uploads = '';
+	$show_downloads = '';
+	$show_form = '';
+
+	if($atts['show_uploads']) {
+		$show_downloads = '<div class="cloudwok-upload-files"></div>';
+	}
+	if($atts['show_downloads']) {
+		$show_downloads = '<div class="cloudwok-download-files"></div>';
+	}
+	if($atts['show_form']) {
+		$show_downloads = '<div class="cloudwok-upload-message"></div>';
+	}
+
 	// Code
+  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '">'
+	  . $show_uploads .
+    '<form class="cloudwok-upload">
+      <div class="cloudwok-dropzone"></div>
+    </form>'
+		. $show_downloads
+		. $show_form .
+  '</div>
 
-  echo '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '">';
-  echo '  <div class="cloudwok-upload-files"></div>';
-  echo '  <form class="cloudwok-upload">';
-  echo '    <div class="cloudwok-dropzone"></div>';
-  echo '  </form>';
-  echo '  <div class="cloudwok-download-files"></div>';
-  echo '  <div class="cloudwok-upload-message"></div>';
-  echo '</div>';
-
-  echo '<script>';
-  echo '  (function(window, document) {';
-  echo '    var loader = function() {';
-  echo '      var script = document.createElement("script"),';
-  echo '      tag = document.getElementsByTagName("script")[0];';
-  echo '      script.src = "https://www.cloudwok.com/cdn-vassets/javascripts/cw.js";';
-  echo '      tag.parentNode.insertBefore(script, tag);';
-  echo '    };';
-  echo '    window.addEventListener ? window.addEventListener("load", loader, false) :';
-  echo '    window.attachEvent("onload", loader);';
-  echo '  })(window, document);';
-  echo '</script>';
+  <script>
+    (function(window, document) {
+      var loader = function() {
+        var script = document.createElement("script"),
+        tag = document.getElementsByTagName("script")[0];
+        script.src = "https://www.cloudwok.com/cdn-vassets/javascripts/cw.js";
+        tag.parentNode.insertBefore(script, tag);
+      };
+      window.addEventListener ? window.addEventListener("load", loader, false) :
+      window.attachEvent("onload", loader);
+    })(window, document);
+  </script>';
+	return $to_return;
 }
 add_shortcode( 'cloudwok', 'cloudwok_shortcode' );
 
