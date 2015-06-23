@@ -46,13 +46,13 @@ function cloudwok_shortcode( $atts ) {
 	$show_form = '';
 
 	if($atts['show_uploads']) {
-		$show_downloads = '<div class="cloudwok-upload-files"></div>';
+		$show_uploads = '<div class="cloudwok-upload-files"></div>';
 	}
 	if($atts['show_downloads']) {
 		$show_downloads = '<div class="cloudwok-download-files"></div>';
 	}
 	if($atts['show_form']) {
-		$show_downloads = '<div class="cloudwok-upload-message"></div>';
+		$show_form = '<div class="cloudwok-upload-message"></div>';
 	}
 
 	// Code
