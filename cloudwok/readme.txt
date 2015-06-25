@@ -56,6 +56,8 @@ You can also combine the options of the shortcode, as in this example:
 
 `[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False" show_downloads="True" show_form="True" show_powered_by_link="True"]`
 
+By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`.
+
 == Frequently Asked Questions ==
 
 So far no questions. Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok.
