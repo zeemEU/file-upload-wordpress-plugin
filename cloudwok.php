@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.2
+Version: 0.3
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -38,12 +38,14 @@ function cloudwok_shortcode( $atts ) {
 			'show_uploads' => True,
 			'show_downloads' => False,
 			'show_form' => True,
+			'show_powered_by_link' => False,
 		), $atts )
 	);
 
 	$show_uploads = '';
 	$show_downloads = '';
 	$show_form = '';
+	$show_powered_by_link = 'data-pby="n"';
 
 	if($atts['show_uploads']) {
 		$show_uploads = '<div class="cloudwok-upload-files"></div>';
@@ -54,9 +56,12 @@ function cloudwok_shortcode( $atts ) {
 	if($atts['show_form']) {
 		$show_form = '<div class="cloudwok-upload-message"></div>';
 	}
+	if($atts['show_powered_by_link']) {
+		$show_powered_by_link = 'data-pby="y"';
+	}
 
 	// Code
-  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '">'
+  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . '>'
 	  . $show_uploads .
     '<form class="cloudwok-upload">
       <div class="cloudwok-dropzone"></div>
