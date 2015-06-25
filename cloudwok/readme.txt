@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== CloudWok File-Upload ===
 Contributors: markusklems
 Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
@@ -12,9 +12,9 @@ File-upload plugin to let visitors of your site upload files into your Dropbox, 
 
 == Description ==
 
-CloudWok is a service that enables you to receive files directly in your Dropbox folder, Google Drive folder, S3 bucket, Box.com folder, or Facebook photo album.
+Receive files directly in your Dropbox folder, Google Drive folder, S3 bucket, Box.com folder, or Facebook photo album. With the CloudWok file-upload plugin you can let others upload files to your cloud storage.
 
-With the CloudWok Wordpress plugin, you can embed a cloudwok file-upload form into your own website or blog. Visitors of your website can upload files that are transferred directly into your connected Dropbox folder (or Google Drive folder, ...).
+With the CloudWok WordPress plugin, you can embed a cloudwok file-upload form into your own website or blog. Visitors of your website can upload files that are transferred directly into your connected Dropbox folder (or Google Drive folder, ...).
 
 For example, with the CloudWok Wordpress plug-in, you can:
 * Create a wedding website where you let wedding guests upload photos directly into your Dropbox, Google Drive, ...
