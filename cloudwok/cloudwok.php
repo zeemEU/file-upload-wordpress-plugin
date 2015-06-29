@@ -45,7 +45,7 @@ function cloudwok_shortcode( $atts ) {
 	$show_uploads = '';
 	$show_downloads = '';
 	$show_form = '';
-	$show_powered_by_link = 'data-pby="n"';
+	$show_powered_by_link = 'data-pby="y"';
 
 	if($atts['show_uploads']) {
 		$show_uploads = '<div class="cloudwok-upload-files"></div>';
@@ -56,8 +56,8 @@ function cloudwok_shortcode( $atts ) {
 	if($atts['show_form']) {
 		$show_form = '<div class="cloudwok-upload-message"></div>';
 	}
-	if($atts['show_powered_by_link']) {
-		$show_powered_by_link = 'data-pby="y"';
+	if(!$atts['show_powered_by_link']) {
+		$show_powered_by_link = 'data-pby="n"';
 	}
 
 	// Code
