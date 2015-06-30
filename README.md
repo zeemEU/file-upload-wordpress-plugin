@@ -21,16 +21,18 @@ That's it. Any problems? Send an e-mail to markus@cloudwok.com
 
 Now you can add shortcodes like the following to your pages, blog posts, etc:
 
-`[cloudwok wok_id="YOUR_WOK_ID"]`
+`[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`
 
-In the example, replace `YOUR_WOK_ID` your actual wok id (a four-letter id, such as "AneJ"). 
+In the example, replace `YOUR_WOK_ID` your actual wok id (a four-letter id, such as "AneJ").
 
 By default, the file-upload widget shows a file-upload button (and drag & drop area) and after file uploads shows the uploaded files in a list. You can configure the shortcode as follows:
 
-* `[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False"]` Don't show a list of uploaded files
-* `[cloudwok wok_id="YOUR_WOK_ID" show_downloads="True"]` List all files that have been uploaded so far
-* `[cloudwok wok_id="YOUR_WOK_ID" show_form="True"]` Show a form where uploaders can enter additional information along with their uploaded files, such as their e-mail and a message.
+* `[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False" show_powered_by_link="True"]` Don't show a list of uploaded files
+* `[cloudwok wok_id="YOUR_WOK_ID" show_downloads="True" show_powered_by_link="True"]` List all files that have been uploaded so far
+* `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_powered_by_link="True"]` Show a form where uploaders can enter additional information along with their uploaded files, such as their e-mail and a message.
 
 You can also combine the options of the shortcode, as in this example:
 
-`[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False" show_downloads="True" show_form="True"]`
+`[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False" show_downloads="True" show_form="True" show_powered_by_link="True"]`
+
+By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`.
