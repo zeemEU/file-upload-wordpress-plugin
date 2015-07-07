@@ -28,18 +28,18 @@ Share your use case with us by sending us a link to your Wordpress site at marku
 
 How to install the plugin and get it working in 5 minutes.
 
-Create a CloudWok:
+**Create a CloudWok:**
 
 1. Go to https://www.cloudwok.com and create an account.
 2. Create a CloudWok that is either connected to a folder in your Dropbox, Google Drive, Box.com account or other cloud storage accounts that are supported by CloudWok.
 3. After you have created a Wok, you get a URL to an upload website, such as this: https://www.cloudwok.com/u/AneJ. The last four letters are your "wok id" (in this example: AneJ).
 
-Install the plug-in:
+**Install the plug-in:**
 
-4. Upload `cloudwok.php` to the `/wp-content/plugins/` directory
-5. Activate the plugin through the 'Plugins' menu in WordPress
+1. Upload `cloudwok.php` to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
-Use the plug-in:
+**Use the plug-in:**
 
 Now you can add shortcodes like the following to your pages, blog posts, etc:
 
