@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.2.2
-Stable tag: 0.3.1
+Stable tag: 0.3.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,7 +34,16 @@ How to install the plugin and get it working in 5 minutes.
 2. Create a CloudWok that is either connected to a folder in your Dropbox, Google Drive, Box.com account or other cloud storage accounts that are supported by CloudWok.
 3. After you have created a Wok, you get a URL to an upload website, such as this: https://www.cloudwok.com/u/AneJ. The last four letters are your "wok id" (in this example: AneJ).
 
-**Install the plug-in:**
+**Install the plug-in via WordPress Plugin Directory:**
+
+The easiest way to install the plugin is through the "Plugins" menu item on the left-hand sidebar in your WordPress admin panel (see screenshots).
+1. Click on "Plugins"
+2. Click on "Add New"
+3. Search for the term "CloudWok"
+4. Select the CloudWok plugin and install it.
+5. Activate the plugin.
+
+**Manually install the plug-in:**
 
 1. Upload `cloudwok.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
@@ -67,9 +76,12 @@ So far no questions. Send us an e-mail if you have an issue: markus@cloudwok.com
 
 1. File-upload form in a WordPress blog post view.
 2. Shortcode that adds a file-upload form to a blog post.
+3. How to install the plugin via the WordPress plugin directory.
 
 == Changelog ==
 
+= 0.3.2 =
+Minor code changes.
 = 0.3.1 =
 Minor bugfixes.
 

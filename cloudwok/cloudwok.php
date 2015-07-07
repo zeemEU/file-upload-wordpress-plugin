@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.3.1
+Version: 0.3.2
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -45,18 +45,18 @@ function cloudwok_shortcode( $atts ) {
 	$show_uploads = '';
 	$show_downloads = '';
 	$show_form = '';
-	$show_powered_by_link = '';
+	$show_powered_by_link = 'data-pby="n"';
 
-	if(array_key_exists('show_uploads', $atts) && $atts['show_uploads']) {
+	if(array_key_exists('show_uploads', $atts) && $atts['show_uploads'] == "True") {
 		$show_uploads = '<div class="cloudwok-upload-files"></div>';
 	}
-	if(array_key_exists('show_downloads', $atts) && $atts['show_downloads']) {
+	if(array_key_exists('show_downloads', $atts) && $atts['show_downloads']  == "True") {
 		$show_downloads = '<div class="cloudwok-download-files"></div>';
 	}
-	if(array_key_exists('show_form', $atts) && $atts['show_form']) {
+	if(array_key_exists('show_form', $atts) && $atts['show_form']  == "True") {
 		$show_form = '<div class="cloudwok-upload-message"></div>';
 	}
-	if(array_key_exists('show_powered_by_link', $atts) && $atts['show_powered_by_link']) {
+	if(array_key_exists('show_powered_by_link', $atts) && $atts['show_powered_by_link'] == "True") {
 		$show_powered_by_link = 'data-pby="y"';
 	}
 
