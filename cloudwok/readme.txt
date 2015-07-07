@@ -8,7 +8,7 @@ Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-File-upload plugin to let visitors of your site upload files into your Dropbox, Google Drive, Amazon S3, Box.com, etc. Directly receive files (photos, videos, documents, and so on) from your website visitors.
+File-upload plugin to let visitors of your site upload files into your Dropbox, Google Drive, Amazon S3, Box.com, etc.
 
 == Description ==
 
