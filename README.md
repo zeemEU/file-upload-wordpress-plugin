@@ -2,6 +2,8 @@
 
 Install the CloudWok Wordpress plugin to let visitors of your Wordpress website upload files into your Dropbox, Google Drive, S3, Box.com, etc.
 
+Plugin description: [https://wordpress.org/plugins/cloudwok-file-upload/](https://wordpress.org/plugins/cloudwok-file-upload/)
+
 ## Prerequisites
 
 1. Go to https://www.cloudwok.com and create an account.
@@ -10,7 +12,13 @@ Install the CloudWok Wordpress plugin to let visitors of your Wordpress website 
 
 3. After you have created a Wok, you get a URL to an upload website, such as this: https://www.cloudwok.com/u/AneJ. The last four letters are your "wok id" (in this example: AneJ).
 
-## Install the plugin
+## Install via WordPress Plugin Directory
+
+The simplest way is to click on your menu item "Plugins" in the left-side WordPress admin sidebar.
+1. Click on "Add New" and search for the CloudWok plugin.
+2. Click on "Install" and then click on "Activate".
+
+## Manually install the plugin
 
 1. Copy the cloudwok.php file to your Wordpress plugin folder (`path/to/your/wordpress/wp-content/plugins`).
 2. Click on 'Plugins' on the left-side menu bar. You should see the CloudWok plugin in the list. Click on 'Activate'.
