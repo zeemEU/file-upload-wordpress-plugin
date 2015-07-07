@@ -45,6 +45,8 @@ The easiest way to install the plugin is through the "Plugins" menu item on the 
 
 **Manually install the plug-in:**
 
+Alternative to the installation method via WordPress plugin directory, as described before, you can also manually install the plugin:
+
 1. Upload `cloudwok.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
