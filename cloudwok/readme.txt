@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.2.2
-Stable tag: 0.3
+Stable tag: 0.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -70,7 +70,8 @@ So far no questions. Send us an e-mail if you have an issue: markus@cloudwok.com
 
 == Changelog ==
 
-No changes, yet.
+= 0.3.1 =
+Minor bugfixes.
 
 == Upgrade Notice ==
 
