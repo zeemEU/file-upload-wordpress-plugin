@@ -8,7 +8,7 @@ Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-File-upload plugin to let visitors of your site upload files into your Dropbox, Google Drive, Amazon S3, Box.com, etc.
+File-upload plugin to let visitors of your site upload files into your Dropbox, Google Drive, Amazon S3, Box.com, etc. Directly receive files (photos, videos, documents, and so on) from your website visitors.
 
 == Description ==
 
@@ -17,6 +17,7 @@ Receive files directly in your Dropbox folder, Google Drive folder, S3 bucket, B
 With the CloudWok WordPress plugin, you can embed a cloudwok file-upload form into your own website or blog. Visitors of your website can upload files that are transferred directly into your connected Dropbox folder (or Google Drive folder, ...).
 
 For example, with the CloudWok Wordpress plug-in, you can:
+
 * Create a wedding website where you let wedding guests upload photos directly into your Dropbox, Google Drive, ...
 * Create a project website with passowrd-protected file-upload form, through which you collect project deliverables and submissions from colleagues, collaborators, and business partners.
 * Create a blog where you invite your audience to submit pictures and videos for a contest.
@@ -27,13 +28,13 @@ Share your use case with us by sending us a link to your Wordpress site at marku
 
 How to install the plugin and get it working in 5 minutes.
 
-==== Create a CloudWok ===
+=== Create a CloudWok ===
 
 1. Go to https://www.cloudwok.com and create an account.
 2. Create a CloudWok that is either connected to a folder in your Dropbox, Google Drive, Box.com account or other cloud storage accounts that are supported by CloudWok.
 3. After you have created a Wok, you get a URL to an upload website, such as this: https://www.cloudwok.com/u/AneJ. The last four letters are your "wok id" (in this example: AneJ).
 
-==== Install the plug-in ===
+=== Install the plug-in ===
 
 1. Upload `cloudwok.php` to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
