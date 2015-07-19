@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.3.2
+Version: 0.3.3
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -38,6 +38,8 @@ function cloudwok_shortcode( $atts ) {
 			'show_uploads' => True,
 			'show_downloads' => False,
 			'show_form' => True,
+			'show_form_input_name' => True,
+			'show_form_input_email' => True,
 			'show_powered_by_link' => False
 		), $atts )
 	);
@@ -45,29 +47,37 @@ function cloudwok_shortcode( $atts ) {
 	$show_uploads = '';
 	$show_downloads = '';
 	$show_form = '';
-	$show_powered_by_link = 'data-pby="n"';
+	$show_form_input_name = ' data-show-name="n"';
+	$show_form_input_email = ' data-show-email="n"';
+	$show_powered_by_link = ' data-pby="n"';
 
 	if(array_key_exists('show_uploads', $atts) && $atts['show_uploads'] == "True") {
 		$show_uploads = '<div class="cloudwok-upload-files"></div>';
 	}
-	if(array_key_exists('show_downloads', $atts) && $atts['show_downloads']  == "True") {
-		$show_downloads = '<div class="cloudwok-download-files"></div>';
-	}
 	if(array_key_exists('show_form', $atts) && $atts['show_form']  == "True") {
 		$show_form = '<div class="cloudwok-upload-message"></div>';
+	}
+	if(array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True") {
+		$show_form_input_name = ' data-show-name="y"';
+	}
+	if(array_key_exists('show_form_input_email', $atts) && $atts['show_form_input_email'] == "True") {
+		$show_form_input_email = ' data-show-email="y"';
+	}
+	if(array_key_exists('show_downloads', $atts) && $atts['show_downloads']  == "True") {
+		$show_downloads = '<div class="cloudwok-download-files"></div>';
 	}
 	if(array_key_exists('show_powered_by_link', $atts) && $atts['show_powered_by_link'] == "True") {
 		$show_powered_by_link = 'data-pby="y"';
 	}
 
 	// Code
-  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . '>'
+  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . $show_form_input_name . $show_form_input_email . '>'
 	  . $show_uploads .
     '<form class="cloudwok-upload">
       <div class="cloudwok-dropzone"></div>
     </form>'
-		. $show_downloads
-		. $show_form .
+		. $show_form
+		. $show_downloads .
   '</div>
 
   <script>

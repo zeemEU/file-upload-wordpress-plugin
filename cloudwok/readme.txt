@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.2.2
-Stable tag: 0.3.2
+Stable tag: 0.3.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -19,10 +19,10 @@ With the CloudWok WordPress plugin, you can embed a cloudwok file-upload form in
 For example, with the CloudWok Wordpress plug-in, you can:
 
 * Create a wedding website where you let wedding guests upload photos directly into your Dropbox, Google Drive, ...
-* Create a project website with passowrd-protected file-upload form, through which you collect project deliverables and submissions from colleagues, collaborators, and business partners.
+* Create a project website with password-protected file-upload form, through which you collect project deliverables and submissions from colleagues, collaborators, and business partners.
 * Create a blog where you invite your audience to submit pictures and videos for a contest.
 
-Share your use case with us by sending us a link to your Wordpress site at markus@cloudwok.com. We are always happy to hear feedback from our users. Sometimes so much, that we give away service upgrades and upload quota for free.
+Share your use case with us by sending us a link to your WordPress site at markus@cloudwok.com. We are always happy to hear feedback from our users. Sometimes so much, that we give away service upgrades and upload quota for free.
 
 == Installation ==
 
@@ -68,6 +68,14 @@ You can also combine the options of the shortcode, as in this example:
 
 `[cloudwok wok_id="YOUR_WOK_ID" show_uploads="False" show_downloads="True" show_form="True" show_powered_by_link="True"]`
 
+You can customize the message form as follows to let uploaders enter their e-mail and/or name:
+
+* `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True" show_form_input_email="True"]` Show a form with name and e-mail input fields in addition to the message field.
+* `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True"]` Show a form with name field but without e-mail field in addition to the message field.
+* `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_email="True"]` Show a form without a name field but with an e-mail input fields in addition to the message field.
+
+Thereby, you gain the ability to more easily correlate files that are uploaded to your Dropbox, Google Drive, etc. with the name and/or e-mail of the person who uploaded these files.
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`.
 
 == Frequently Asked Questions ==
@@ -82,6 +90,8 @@ So far no questions. Send us an e-mail if you have an issue: markus@cloudwok.com
 
 == Changelog ==
 
+= 0.3.3 =
+Added new features to optionally show first name, last name, and e-mail address as input fields of the message form. Use it for example like this: `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True"]`
 = 0.3.2 =
 Minor code changes.
 = 0.3.1 =
