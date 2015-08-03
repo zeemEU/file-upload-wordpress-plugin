@@ -3,8 +3,8 @@ Contributors: markusklems
 Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
-Tested up to: 4.2.2
-Stable tag: 0.3.3
+Tested up to: 4.2.3
+Stable tag: 0.3.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,7 @@ How to install the plugin and get it working in 5 minutes.
 **Install the plug-in via WordPress Plugin Directory:**
 
 The easiest way to install the plugin is through the "Plugins" menu item on the left-hand sidebar in your WordPress admin panel (see screenshots).
+
 1. Click on "Plugins"
 2. Click on "Add New"
 3. Search for the term "CloudWok"
@@ -76,7 +77,7 @@ You can customize the message form as follows to let uploaders enter their e-mai
 
 Thereby, you gain the ability to more easily correlate files that are uploaded to your Dropbox, Google Drive, etc. with the name and/or e-mail of the person who uploaded these files.
 
-By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`.
+By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
 
@@ -90,6 +91,8 @@ So far no questions. Send us an e-mail if you have an issue: markus@cloudwok.com
 
 == Changelog ==
 
+= 0.3.4 =
+Added feature to customize labels and texts (see here: https://wordpress.org/support/topic/custom-text-translation). This will likely be replaced in future versions by a central customization admin page.
 = 0.3.3 =
 Added new features to optionally show first name, last name, and e-mail address as input fields of the message form. Use it for example like this: `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True"]`
 = 0.3.2 =

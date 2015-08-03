@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.3.3
+Version: 0.3.4
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -40,7 +40,14 @@ function cloudwok_shortcode( $atts ) {
 			'show_form' => True,
 			'show_form_input_name' => True,
 			'show_form_input_email' => True,
-			'show_powered_by_link' => False
+			'show_powered_by_link' => False,
+			'label_add_files_btn' => '',
+			'label_send_msg_btn' => '',
+			'label_dropzone' => '',
+			'label_send_msg_placeholder' => '',
+			'label_send_email_placeholder' => '',
+			'label_send_firstname_placeholder' => '',
+			'label_send_lastname_placeholder' => ''
 		), $atts )
 	);
 
@@ -50,6 +57,10 @@ function cloudwok_shortcode( $atts ) {
 	$show_form_input_name = ' data-show-name="n"';
 	$show_form_input_email = ' data-show-email="n"';
 	$show_powered_by_link = ' data-pby="n"';
+
+	// customize labels and texts
+	$customizeDropzone = '';
+	$customizeMessages = '';
 
 	if(array_key_exists('show_uploads', $atts) && $atts['show_uploads'] == "True") {
 		$show_uploads = '<div class="cloudwok-upload-files"></div>';
@@ -68,6 +79,47 @@ function cloudwok_shortcode( $atts ) {
 	}
 	if(array_key_exists('show_powered_by_link', $atts) && $atts['show_powered_by_link'] == "True") {
 		$show_powered_by_link = 'data-pby="y"';
+	}
+
+	// custom labels
+	if(array_key_exists('label_add_files_btn', $atts) || array_key_exists('label_dropzone', $atts)) {
+		$customizeDropzone = 'document.querySelector( ".cloudwok-embed .cloudwok-dropzone").addEventListener("DOMNodeInserted", customizeDropzone, false);
+		function customizeDropzone(e) {
+		  if(e.target && e.target.nodeName == "DIV") {
+				';
+		if(array_key_exists('label_add_files_btn', $atts)) {
+			$customizeDropzone = $customizeDropzone . 'document.querySelector(".cloudwok-embed .dropzone span.lead > .fileinput-button > span" ).innerHTML = "' . $atts['label_add_files_btn'] . '";';
+		}
+		if(array_key_exists('label_dropzone', $atts)) {
+			$customizeDropzone = $customizeDropzone . 'document.querySelector(".cloudwok-embed .dropzone span.lead > strong" ).innerHTML = "' . $atts['label_dropzone'] . '";';
+		}
+		$customizeDropzone = $customizeDropzone . '
+	  }}';
+	}
+	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts)) {
+		$customizeMessages = 'document.querySelector( ".cloudwok-embed .cloudwok-upload-message").addEventListener("DOMNodeInserted", customizeMessages, false);
+		function customizeMessages(e) {
+			if(e.target && e.target.nodeName == "DIV") {';
+		if(array_key_exists('label_send_msg_btn', $atts)) {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed .cloudwok-upload-message .btn-start-upload" ).innerHTML = "<i class=\'fa fa-send\'></i> ' . $atts['label_send_msg_btn'] . '";';
+		}
+		if(array_key_exists('label_send_msg_placeholder', $atts)) {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed .cloudwok-upload-message > form > fieldset > div.form-group > div > textarea" ).innerHTML = "' . $atts['label_send_msg_placeholder'] . '";';
+		}
+		if(array_key_exists('label_send_msg_placeholder', $atts)) {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed .cloudwok-upload-message > form > fieldset > div.form-group > div > textarea" ).placeholder = "' . $atts['label_send_msg_placeholder'] . '";';
+		}
+		if(array_key_exists('label_send_email_placeholder', $atts)) {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from]").placeholder = "' . $atts['label_send_email_placeholder'] . '";';
+		}
+		if(array_key_exists('label_send_firstname_placeholder', $atts)) {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]").placeholder = "' . $atts['label_send_firstname_placeholder'] . '";';
+		}
+		if(array_key_exists('label_send_lastname_placeholder', $atts)) {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).placeholder = "' . $atts['label_send_lastname_placeholder'] . '";';
+		}
+		$customizeMessages = $customizeMessages . '
+	  }}';
 	}
 
 	// Code
@@ -91,7 +143,12 @@ function cloudwok_shortcode( $atts ) {
       window.addEventListener ? window.addEventListener("load", loader, false) :
       window.attachEvent("onload", loader);
     })(window, document);
-  </script>';
+
+	' . $customizeDropzone . '
+
+	' .	$customizeMessages . '
+	</script>
+	';
 	return $to_return;
 }
 add_shortcode( 'cloudwok', 'cloudwok_shortcode' );
