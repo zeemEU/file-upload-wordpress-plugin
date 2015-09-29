@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.2.3
-Stable tag: 0.3.4
+Stable tag: 0.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,11 +77,19 @@ You can customize the message form as follows to let uploaders enter their e-mai
 
 Thereby, you gain the ability to more easily correlate files that are uploaded to your Dropbox, Google Drive, etc. with the name and/or e-mail of the person who uploaded these files.
 
+Since version 0.3.5 of this plugin, you can disable the dropzone and show a simple file-upload button instead:
+
+`[cloudwok wok_id="YOUR_WOK_ID" simple_file_upload_button="True" show_powered_by_link="True"]`
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
 
-So far no questions. Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok.
+* Is it possible to change the default texts and labels?
+
+You can customize texts and labels. Please take a look at this thread: https://wordpress.org/support/topic/custom-text-translation
+
+Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok. Or open a thread in the WordPress support forum for this plugin.
 
 == Screenshots ==
 
@@ -91,6 +99,8 @@ So far no questions. Send us an e-mail if you have an issue: markus@cloudwok.com
 
 == Changelog ==
 
+= 0.3.5 =
+Added option to show only simple file-upload button in lieu of dropzone via simple_file_upload_button="True" shortcode attribute.
 = 0.3.4 =
 Added feature to customize labels and texts (see here: https://wordpress.org/support/topic/custom-text-translation). This will likely be replaced in future versions by a central customization admin page.
 = 0.3.3 =
