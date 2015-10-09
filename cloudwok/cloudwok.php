@@ -42,6 +42,7 @@ function cloudwok_shortcode( $atts ) {
 			'show_form_input_email' => True,
 			'show_powered_by_link' => False,
 			'simple_file_upload_button' => False,
+			'hide_upload_success_message' => False,
 			'label_add_files_btn' => '',
 			'label_send_msg_btn' => '',
 			'label_dropzone' => '',
@@ -58,6 +59,7 @@ function cloudwok_shortcode( $atts ) {
 	$show_form_input_name = ' data-show-name="n"';
 	$show_form_input_email = ' data-show-email="n"';
 	$show_powered_by_link = ' data-pby="n"';
+	$hide_upload_success_message = '';
 	$file_upload_input = '<div class="cloudwok-dropzone"></div>';
 
 	// customize labels and texts
@@ -81,6 +83,9 @@ function cloudwok_shortcode( $atts ) {
 	}
 	if(array_key_exists('simple_file_upload_button', $atts) && $atts['simple_file_upload_button'] == "True") {
 		$file_upload_input = '<input type="file" name="files[]" multiple>';
+	}
+	if(array_key_exists('hide_upload_success_message', $atts) && $atts['hide_upload_success_message'] == "True") {
+		$hide_upload_success_message = ' data-hide-upload-success-msg="y"';
 	}
 	if(array_key_exists('show_powered_by_link', $atts) && $atts['show_powered_by_link'] == "True") {
 		$show_powered_by_link = 'data-pby="y"';
@@ -128,7 +133,7 @@ function cloudwok_shortcode( $atts ) {
 	}
 
 	// Code
-  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . $show_form_input_name . $show_form_input_email . '>'
+  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . $show_form_input_name . $show_form_input_email . $hide_upload_success_message . '>'
 	  . $show_uploads .
     '<form class="cloudwok-upload">'
 		. $file_upload_input

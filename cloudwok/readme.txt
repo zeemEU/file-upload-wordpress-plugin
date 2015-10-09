@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.2.3
-Stable tag: 0.3.5
+Stable tag: 0.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -81,6 +81,10 @@ Since version 0.3.5 of this plugin, you can disable the dropzone and show a simp
 
 `[cloudwok wok_id="YOUR_WOK_ID" simple_file_upload_button="True" show_powered_by_link="True"]`
 
+Since version 0.3.6 of this plugin, you can disable the success message that shows after a successful file upload:
+
+`[cloudwok wok_id="YOUR_WOK_ID" hide_upload_success_message="True" show_powered_by_link="True"]`
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
@@ -99,6 +103,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.3.6 =
+You can now disable the success message after a successful file upload, via hide_upload_success_message="True".
 = 0.3.5 =
 Added option to show only simple file-upload button in lieu of dropzone via simple_file_upload_button="True" shortcode attribute.
 = 0.3.4 =
