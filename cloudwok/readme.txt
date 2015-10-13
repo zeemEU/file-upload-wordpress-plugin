@@ -3,7 +3,7 @@ Contributors: markusklems
 Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
-Tested up to: 4.2.3
+Tested up to: 4.3.1
 Stable tag: 0.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
