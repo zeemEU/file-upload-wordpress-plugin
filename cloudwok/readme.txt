@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.3.1
-Stable tag: 0.3.6
+Stable tag: 0.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -22,7 +22,9 @@ For example, with the CloudWok Wordpress plug-in, you can:
 * Create a project website with password-protected file-upload form, through which you collect project deliverables and submissions from colleagues, collaborators, and business partners.
 * Create a blog where you invite your audience to submit pictures and videos for a contest.
 
-Share your use case with us by sending us a link to your WordPress site at markus@cloudwok.com. We are always happy to hear feedback from our users. Sometimes so much, that we give away service upgrades and upload quota for free.
+Share your use case with us by sending us a link to your WordPress site at markus@cloudwok.com. We are always happy to hear feedback from our users. If you write a blog post about your CloudWok use case, we grant you extra quota for free. Drop me an e-mail if you would like to participate in the free-extra-quota initiative.
+
+Take a look at the "Installation" tab for more information how to customize the plugin.
 
 == Installation ==
 
@@ -85,6 +87,10 @@ Since version 0.3.6 of this plugin, you can disable the success message that sho
 
 `[cloudwok wok_id="YOUR_WOK_ID" hide_upload_success_message="True" show_powered_by_link="True"]`
 
+Since version 0.3.7 of this plugin, you can disallow file uploads, for example to only show the list of downloadable files in your Google Drive, Dropbox, ...:
+
+`[cloudwok wok_id="YOUR_WOK_ID" allow_upload="False" show_downloads="True"]`
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
@@ -103,6 +109,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.3.7 =
+You can now use the shortcode also to only allow downloads via allow_upload="False". Thereby, you can, for example, place one cloudwok shortcode on a page that only allows uploading and another shortocde on a page that only allows downloading. Both shortcodes can reference the same wok id (i.e., the same Dropbox or Google Drive folder).
 = 0.3.6 =
 You can now disable the success message after a successful file upload, via hide_upload_success_message="True".
 = 0.3.5 =

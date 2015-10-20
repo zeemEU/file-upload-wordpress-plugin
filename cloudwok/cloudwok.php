@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.3.6
+Version: 0.3.7
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -43,6 +43,7 @@ function cloudwok_shortcode( $atts ) {
 			'show_powered_by_link' => False,
 			'simple_file_upload_button' => False,
 			'hide_upload_success_message' => False,
+			'allow_upload' => True,
 			'label_add_files_btn' => '',
 			'label_send_msg_btn' => '',
 			'label_dropzone' => '',
@@ -56,11 +57,12 @@ function cloudwok_shortcode( $atts ) {
 	$show_uploads = '';
 	$show_downloads = '';
 	$show_form = '';
-	$show_form_input_name = ' data-show-name="n"';
-	$show_form_input_email = ' data-show-email="n"';
+	$show_form_input_name = '';
+	$show_form_input_email = '';
 	$show_powered_by_link = ' data-pby="n"';
 	$hide_upload_success_message = '';
 	$file_upload_input = '<div class="cloudwok-dropzone"></div>';
+  $file_upload_form = '';
 
 	// customize labels and texts
 	$customizeDropzone = '';
@@ -84,8 +86,13 @@ function cloudwok_shortcode( $atts ) {
 	if(array_key_exists('simple_file_upload_button', $atts) && $atts['simple_file_upload_button'] == "True") {
 		$file_upload_input = '<input type="file" name="files[]" multiple>';
 	}
-	if(array_key_exists('hide_upload_success_message', $atts) && $atts['hide_upload_success_message'] == "True") {
-		$hide_upload_success_message = ' data-hide-upload-success-msg="y"';
+	if(array_key_exists('simple_file_upload_button', $atts) && $atts['simple_file_upload_button'] == "True") {
+		$file_upload_input = '<input type="file" name="files[]" multiple>';
+	}
+	if(array_key_exists('allow_upload', $atts) && $atts['allow_upload'] == "False") {
+		$file_upload_form = '<form class="cloudwok-upload"></form>';
+	} else {
+		$file_upload_form = '<form class="cloudwok-upload">' . $file_upload_input . '</form>';
 	}
 	if(array_key_exists('show_powered_by_link', $atts) && $atts['show_powered_by_link'] == "True") {
 		$show_powered_by_link = 'data-pby="y"';
@@ -134,11 +141,8 @@ function cloudwok_shortcode( $atts ) {
 
 	// Code
   $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . $show_form_input_name . $show_form_input_email . $hide_upload_success_message . '>'
-	  . $show_uploads .
-    '<form class="cloudwok-upload">'
-		. $file_upload_input
-		.
-    '</form>'
+	  . $show_uploads
+		. $file_upload_form
 		. $show_form
 		. $show_downloads .
   '</div>
