@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.3.7
+Version: 0.3.9
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -30,6 +30,18 @@ if (!defined('ABSPATH')) die();
 
 // Add Shortcode
 function cloudwok_shortcode( $atts ) {
+
+	global $current_user;
+  get_currentuserinfo();
+	if($current_user) {
+	  $wp_user_id = $current_user->ID;
+	  $wp_user_firstname = $current_user->user_firstname;
+		if(!$wp_user_firstname) {
+			$wp_user_firstname = $current_user->display_name;
+		}
+	  $wp_user_lastname = $current_user->user_lastname;
+	  $wp_user_email = $current_user->user_email;
+  }
 
 	// Attributes
 	extract( shortcode_atts(
@@ -94,6 +106,9 @@ function cloudwok_shortcode( $atts ) {
 	} else {
 		$file_upload_form = '<form class="cloudwok-upload">' . $file_upload_input . '</form>';
 	}
+	if(array_key_exists('hide_upload_success_message', $atts) && $atts['hide_upload_success_message'] == "True") {
+		$hide_upload_success_message = 'data-hide-upload-success-msg="y"';
+	}
 	if(array_key_exists('show_powered_by_link', $atts) && $atts['show_powered_by_link'] == "True") {
 		$show_powered_by_link = 'data-pby="y"';
 	}
@@ -135,6 +150,16 @@ function cloudwok_shortcode( $atts ) {
 		if(array_key_exists('label_send_lastname_placeholder', $atts)) {
 			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).placeholder = "' . $atts['label_send_lastname_placeholder'] . '";';
 		}
+		// fill e-mail, first name, and last name with wp user values
+    if($wp_user_email) {
+    	$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from]").value = "' . $wp_user_email . '";';
+    }
+    if($wp_user_firstname) {
+    	$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]").value = "' . $wp_user_firstname . '";';
+    }
+    if($wp_user_lastname) {
+    	$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).value = "' . $wp_user_lastname . '";';
+    }
 		$customizeMessages = $customizeMessages . '
 	  }}';
 	}

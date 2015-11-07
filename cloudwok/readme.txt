@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.3.1
-Stable tag: 0.3.7
+Stable tag: 0.3.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -83,13 +83,13 @@ Since version 0.3.5 of this plugin, you can disable the dropzone and show a simp
 
 `[cloudwok wok_id="YOUR_WOK_ID" simple_file_upload_button="True" show_powered_by_link="True"]`
 
-Since version 0.3.6 of this plugin, you can disable the success message that shows after a successful file upload:
-
-`[cloudwok wok_id="YOUR_WOK_ID" hide_upload_success_message="True" show_powered_by_link="True"]`
-
 Since version 0.3.7 of this plugin, you can disallow file uploads, for example to only show the list of downloadable files in your Google Drive, Dropbox, ...:
 
 `[cloudwok wok_id="YOUR_WOK_ID" allow_upload="False" show_downloads="True"]`
+
+Since version 0.3.8 of this plugin, you can disable the success message that shows after a successful file upload:
+
+`[cloudwok wok_id="YOUR_WOK_ID" hide_upload_success_message="True" show_powered_by_link="True"]`
 
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
@@ -109,6 +109,10 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.3.9 =
+Minor feature improvement: pre-fill message form with e-mail, first name, and last name of a logged in WP user.
+= 0.3.8 =
+Bugfix to make this feature work: disable the success message after a successful file upload, via hide_upload_success_message="True".
 = 0.3.7 =
 You can now use the shortcode also to only allow downloads via allow_upload="False". Thereby, you can, for example, place one cloudwok shortcode on a page that only allows uploading and another shortocde on a page that only allows downloading. Both shortcodes can reference the same wok id (i.e., the same Dropbox or Google Drive folder).
 = 0.3.6 =
