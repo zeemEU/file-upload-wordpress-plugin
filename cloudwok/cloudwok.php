@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.3.9
+Version: 0.4.0
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -62,7 +62,8 @@ function cloudwok_shortcode( $atts ) {
 			'label_send_msg_placeholder' => '',
 			'label_send_email_placeholder' => '',
 			'label_send_firstname_placeholder' => '',
-			'label_send_lastname_placeholder' => ''
+			'label_send_lastname_placeholder' => '',
+			'prefill_form_fields' => ''
 		), $atts )
 	);
 
@@ -128,7 +129,7 @@ function cloudwok_shortcode( $atts ) {
 		$customizeDropzone = $customizeDropzone . '
 	  }}';
 	}
-	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts)) {
+	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts) || array_key_exists('prefill_form_fields', $atts)) {
 		$customizeMessages = 'document.querySelector( ".cloudwok-embed .cloudwok-upload-message").addEventListener("DOMNodeInserted", customizeMessages, false);
 		function customizeMessages(e) {
 			if(e.target && e.target.nodeName == "DIV") {';

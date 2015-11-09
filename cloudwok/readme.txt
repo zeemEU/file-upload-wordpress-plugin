@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.3.1
-Stable tag: 0.3.9
+Stable tag: 0.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -91,6 +91,10 @@ Since version 0.3.8 of this plugin, you can disable the success message that sho
 
 `[cloudwok wok_id="YOUR_WOK_ID" hide_upload_success_message="True" show_powered_by_link="True"]`
 
+Since version 0.4.0 of this plugin, you can pre-fill the e-mail and name fields with values from the current WordPress user:
+
+`[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True" show_form_input_email="True" prefill_form_fields="True"]`
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
@@ -109,6 +113,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.4.0 =
+Minor change to make feature introduced in 0.3.9 work in all cases.
 = 0.3.9 =
 Minor feature improvement: pre-fill message form with e-mail, first name, and last name of a logged in WP user.
 = 0.3.8 =
