@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.4.0
+Version: 0.4.1
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -63,7 +63,9 @@ function cloudwok_shortcode( $atts ) {
 			'label_send_email_placeholder' => '',
 			'label_send_firstname_placeholder' => '',
 			'label_send_lastname_placeholder' => '',
-			'prefill_form_fields' => ''
+			'prefill_form_fields' => '',
+			'required_firstname' => '',
+			'required_lastname' => ''
 		), $atts )
 	);
 
@@ -129,7 +131,7 @@ function cloudwok_shortcode( $atts ) {
 		$customizeDropzone = $customizeDropzone . '
 	  }}';
 	}
-	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts) || array_key_exists('prefill_form_fields', $atts)) {
+	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts) || array_key_exists('prefill_form_fields', $atts) || array_key_exists('required_firstname', $atts) || array_key_exists('required_lastname', $atts)) {
 		$customizeMessages = 'document.querySelector( ".cloudwok-embed .cloudwok-upload-message").addEventListener("DOMNodeInserted", customizeMessages, false);
 		function customizeMessages(e) {
 			if(e.target && e.target.nodeName == "DIV") {';
@@ -151,16 +153,24 @@ function cloudwok_shortcode( $atts ) {
 		if(array_key_exists('label_send_lastname_placeholder', $atts)) {
 			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).placeholder = "' . $atts['label_send_lastname_placeholder'] . '";';
 		}
+		if(array_key_exists('required_firstname', $atts) && $atts['required_firstname']  == "True") {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]" ).required=true;';
+		}
+		if(array_key_exists('required_lastname', $atts) && $atts['required_lastname']  == "True") {
+			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).required=true;';
+		}
 		// fill e-mail, first name, and last name with wp user values
-    if($wp_user_email) {
-    	$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from]").value = "' . $wp_user_email . '";';
-    }
-    if($wp_user_firstname) {
-    	$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]").value = "' . $wp_user_firstname . '";';
-    }
-    if($wp_user_lastname) {
-    	$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).value = "' . $wp_user_lastname . '";';
-    }
+		if(array_key_exists('prefill_form_fields', $atts)) {
+      if($wp_user_email && array_key_exists('show_form_input_email', $atts) &&   $atts['show_form_input_email'] == "True") {
+      	$customizeMessages = $customizeMessages .   'document.querySelector(".cloudwok-embed input[name=from]").value = "' .   $wp_user_email . '";';
+      }
+      if($wp_user_firstname && array_key_exists('show_form_input_name', $atts) &&   $atts['show_form_input_name'] == "True") {
+      	$customizeMessages = $customizeMessages .   'document.querySelector(".cloudwok-embed input[name=from_firstname]").value = "'   . $wp_user_firstname . '";';
+      }
+      if($wp_user_lastname && array_key_exists('show_form_input_name', $atts) &&   $atts['show_form_input_name'] == "True") {
+      	$customizeMessages = $customizeMessages .   'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).value = "'   . $wp_user_lastname . '";';
+      }
+	  }
 		$customizeMessages = $customizeMessages . '
 	  }}';
 	}
