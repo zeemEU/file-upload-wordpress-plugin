@@ -3,8 +3,8 @@ Contributors: markusklems
 Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
-Tested up to: 4.3.1
-Stable tag: 0.4.1
+Tested up to: 4.4.0
+Stable tag: 0.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -99,6 +99,10 @@ Since version 0.4.1 of this plugin, you can make the first name and last name fi
 
 `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True" required_firstname="True" required_lastname="True"]`
 
+Since version 0.4.2 of this plugin, via `invisible_form_input_name` you can let the plugin submit the wordpress user name when a user uploads a file without showing the input fields to your user:
+
+`[cloudwok wok_id="YOUR_WOK_ID" show_uploads="True" show_form="True" show_form_input_name="True" prefill_form_fields="True" invisible_form_input_name="True"]`
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
@@ -117,6 +121,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.4.2 =
+You can now use `show_form_input_name="True"` in combination with the new `invisible_form_input_name="True"` to let the plugin submit the wordpress user name when a user uploads a file without showing the input fields to your user. Thereby you know who uploaded the file without need to let your uploader enter her/his name.
 = 0.4.1 =
 Added ability to make first name / last name fields required: `required_firstname="True"` and `required_lastname="True"`
 = 0.4.0 =

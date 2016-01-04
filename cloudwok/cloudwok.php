@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.4.1
+Version: 0.4.2
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -51,6 +51,7 @@ function cloudwok_shortcode( $atts ) {
 			'show_downloads' => False,
 			'show_form' => True,
 			'show_form_input_name' => True,
+			'invisible_form_input_name' => False,
 			'show_form_input_email' => True,
 			'show_powered_by_link' => False,
 			'simple_file_upload_button' => False,
@@ -131,7 +132,7 @@ function cloudwok_shortcode( $atts ) {
 		$customizeDropzone = $customizeDropzone . '
 	  }}';
 	}
-	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts) || array_key_exists('prefill_form_fields', $atts) || array_key_exists('required_firstname', $atts) || array_key_exists('required_lastname', $atts)) {
+	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts) || array_key_exists('prefill_form_fields', $atts) || array_key_exists('required_firstname', $atts) || array_key_exists('required_lastname', $atts) || array_key_exists('invisible_form_input_name', $atts)) {
 		$customizeMessages = 'document.querySelector( ".cloudwok-embed .cloudwok-upload-message").addEventListener("DOMNodeInserted", customizeMessages, false);
 		function customizeMessages(e) {
 			if(e.target && e.target.nodeName == "DIV") {';
@@ -171,6 +172,17 @@ function cloudwok_shortcode( $atts ) {
       	$customizeMessages = $customizeMessages .   'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).value = "'   . $wp_user_lastname . '";';
       }
 	  }
+		// you can also hide the message fields
+		if(array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True" && array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True") {
+				if(array_key_exists('invisible_form_input_name', $atts) && $atts['invisible_form_input_name'] == "True") {
+					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]" ).required=false;';
+					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).required=false;';
+					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed textarea[name=message]" ).required=false;';
+					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).style.display = "none";';
+					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]" ).style.display = "none";';
+					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed textarea[name=message]" ).style.display = "none";';
+				}
+		}
 		$customizeMessages = $customizeMessages . '
 	  }}';
 	}
