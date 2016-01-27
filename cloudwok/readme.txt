@@ -3,8 +3,8 @@ Contributors: markusklems
 Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
-Tested up to: 4.4.0
-Stable tag: 0.4.2
+Tested up to: 4.4.1
+Stable tag: 0.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,6 +13,8 @@ File-upload plugin to let visitors of your site upload files into your Dropbox, 
 == Description ==
 
 Receive files directly in your Dropbox folder, Google Drive folder, S3 bucket, Box.com folder, or Facebook photo album. With the CloudWok file-upload plugin you can let others upload files to your cloud storage.
+
+Simply add the following shortcode in your blog post or page: `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. There are many options to customize the file-upload plugin. Please take a look at the "Installation" tab for more information how to customize the plugin.
 
 With the CloudWok WordPress plugin, you can embed a cloudwok file-upload form into your own website or blog. Visitors of your website can upload files that are transferred directly into your connected Dropbox folder (or Google Drive folder, ...).
 
@@ -23,8 +25,6 @@ For example, with the CloudWok Wordpress plug-in, you can:
 * Create a blog where you invite your audience to submit pictures and videos for a contest.
 
 Share your use case with us by sending us a link to your WordPress site at markus@cloudwok.com. We are always happy to hear feedback from our users. If you write a blog post about your CloudWok use case, we grant you extra quota for free. Drop me an e-mail if you would like to participate in the free-extra-quota initiative.
-
-Take a look at the "Installation" tab for more information how to customize the plugin.
 
 == Installation ==
 
@@ -103,6 +103,10 @@ Since version 0.4.2 of this plugin, via `invisible_form_input_name` you can let 
 
 `[cloudwok wok_id="YOUR_WOK_ID" show_uploads="True" show_form="True" show_form_input_name="True" prefill_form_fields="True" invisible_form_input_name="True"]`
 
+Since version 0.4.3 of this plugin, via `hide_form_message_text="True"`, you can show user name and email input fields without the message text area:
+
+`[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True" required_firstname="True" required_lastname="True" show_form_input_email="True" hide_form_message_text="True"]`
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
@@ -121,6 +125,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.4.3 =
+You can now use `hide_form_message_text="True"` to hide the message text area from the message form. For example, show user name and email input fields without the message text area: `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True" required_firstname="True" required_lastname="True" show_form_input_email="True" hide_form_message_text="True"]`.
 = 0.4.2 =
 You can now use `show_form_input_name="True"` in combination with the new `invisible_form_input_name="True"` to let the plugin submit the wordpress user name when a user uploads a file without showing the input fields to your user. Thereby you know who uploaded the file without need to let your uploader enter her/his name.
 = 0.4.1 =

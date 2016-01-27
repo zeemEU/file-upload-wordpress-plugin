@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.4.2
+Version: 0.4.3
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
