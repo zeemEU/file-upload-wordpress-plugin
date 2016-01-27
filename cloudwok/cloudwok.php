@@ -52,6 +52,7 @@ function cloudwok_shortcode( $atts ) {
 			'show_form' => True,
 			'show_form_input_name' => True,
 			'show_form_input_email' => True,
+			'hide_form_message_text' => False,
 			'show_powered_by_link' => False,
 			'simple_file_upload_button' => False,
 			'hide_upload_success_message' => False,
@@ -72,6 +73,7 @@ function cloudwok_shortcode( $atts ) {
 	$show_form = '';
 	$show_form_input_name = '';
 	$show_form_input_email = '';
+	$hide_form_message_text = '';
 	$show_powered_by_link = ' data-pby="n"';
 	$hide_upload_success_message = '';
 	$file_upload_input = '<div class="cloudwok-dropzone"></div>';
@@ -92,6 +94,9 @@ function cloudwok_shortcode( $atts ) {
 	}
 	if(array_key_exists('show_form_input_email', $atts) && $atts['show_form_input_email'] == "True") {
 		$show_form_input_email = ' data-show-email="y"';
+	}
+	if(array_key_exists('hide_form_message_text', $atts) && $atts['hide_form_message_text'] == "True") {
+		$hide_form_message_text = ' data-hide-message-text="y"';
 	}
 	if(array_key_exists('show_downloads', $atts) && $atts['show_downloads']  == "True") {
 		$show_downloads = '<div class="cloudwok-download-files"></div>';
@@ -166,7 +171,7 @@ function cloudwok_shortcode( $atts ) {
 	}
 
 	// Code
-  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . $show_form_input_name . $show_form_input_email . $hide_upload_success_message . '>'
+  $to_return = '<div class="cloudwok-embed" data-wokid="' . $atts['wok_id'] . '" ' . $show_powered_by_link . $show_form_input_name . $show_form_input_email . $hide_form_message_text . $hide_upload_success_message . '>'
 	  . $show_uploads
 		. $file_upload_form
 		. $show_form
