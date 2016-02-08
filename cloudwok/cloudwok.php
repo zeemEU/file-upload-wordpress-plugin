@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.4.4
+Version: 0.5.0
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -302,5 +302,24 @@ function cloudwok_shortcode( $atts ) {
 	return $to_return;
 }
 add_shortcode( 'cloudwok', 'cloudwok_shortcode' );
+
+/** Step 2 (from text above). */
+add_action( 'admin_menu', 'cw_plugin_menu' );
+
+/** Step 1. */
+function cw_plugin_menu() {
+	add_options_page( 'Manage CloudWok', 'CloudWok', 'manage_options', 'cloudwok-manage-id', 'cw_plugin_options' );
+}
+
+/** Step 3. */
+function cw_plugin_options() {
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+	echo '<div class="wrap">';
+	echo '<p>Here is where the form would go if I actually had options.</p>';
+	echo '</div>';
+}
+
 
 ?>
