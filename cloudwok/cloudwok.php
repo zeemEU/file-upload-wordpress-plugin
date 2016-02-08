@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.4.3
+Version: 0.4.4
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -28,6 +28,48 @@ License URI: http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
 
 if (!defined('ABSPATH')) die();
 
+class WokDataConfigDropzone {
+    public $label = "";
+    public $button  = "";
+}
+
+class WokDataConfigSuccess {}
+
+class WokDataConfigSuccessMessage {
+    public $title = "";
+    public $subtitle  = "";
+		public $text  = "";
+}
+
+class WokDataConfigForm {
+	public $button  = "";
+	public $sent  = "";
+}
+
+class WokDataConfigFormEmail {
+	public $placeholder  = "";
+	public $optional  = false;
+}
+
+class WokDataConfigFormName {}
+
+class WokDataConfigFormNameFirstName {
+	public $placeholder  = "";
+	public $required  = false;
+}
+
+class WokDataConfigFormNameLastName {
+	public $placeholder  = "";
+	public $required  = false;
+}
+
+class WokDataConfigFormMessage {
+	public $placeholder  = "";
+	public $optional  = false;
+}
+
+class WokDataConfig {}
+
 // Add Shortcode
 function cloudwok_shortcode( $atts ) {
 
@@ -43,9 +85,22 @@ function cloudwok_shortcode( $atts ) {
 	  $wp_user_email = $current_user->user_email;
   }
 
+	// init wok data-config
+	$wdc = new WokDataConfig();
+	$wdc->dropzone = new WokDataConfigDropzone();
+	$wdc->success = new WokDataConfigSuccess();
+	$wdc->success->message = new WokDataConfigSuccessMessage();
+	$wdc->form = new WokDataConfigForm();
+	$wdc->form->email = new WokDataConfigFormEmail();
+	$wdc->form->name = new WokDataConfigFormName();
+	$wdc->form->name->firstname = new WokDataConfigFormNameFirstName();
+	$wdc->form->name->lastname = new WokDataConfigFormNameLastName();
+	$wdc->form->message = new WokDataConfigFormMessage();
+
 	// Attributes
 	extract( shortcode_atts(
 		array(
+      'config' => '',
 			'wok_id' => '',
 			'show_uploads' => True,
 			'show_downloads' => False,
@@ -61,6 +116,9 @@ function cloudwok_shortcode( $atts ) {
 			'label_add_files_btn' => '',
 			'label_send_msg_btn' => '',
 			'label_dropzone' => '',
+			'success_message_title' => '',
+			'success_message_subtitle' => '',
+			'success_message_text' => '',
 			'label_send_msg_placeholder' => '',
 			'label_send_email_placeholder' => '',
 			'label_send_firstname_placeholder' => '',
@@ -83,20 +141,20 @@ function cloudwok_shortcode( $atts ) {
   $file_upload_form = '';
 
 	// customize labels and texts
+	$customizeDataConfig = '';
 	$customizeDropzone = '';
 	$customizeMessages = '';
+
+  // break if no wok_id was entered
+  if(!array_key_exists('wok_id', $atts)) {
+    return "Please enter your 4-letter wok id (create a wok on https://www.cloudwok.com)";
+  }
 
 	if(array_key_exists('show_uploads', $atts) && $atts['show_uploads'] == "True") {
 		$show_uploads = '<div class="cloudwok-upload-files"></div>';
 	}
 	if(array_key_exists('show_form', $atts) && $atts['show_form']  == "True") {
 		$show_form = '<div class="cloudwok-upload-message"></div>';
-	}
-	if(array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True") {
-		$show_form_input_name = ' data-show-name="y"';
-	}
-	if(array_key_exists('show_form_input_email', $atts) && $atts['show_form_input_email'] == "True") {
-		$show_form_input_email = ' data-show-email="y"';
 	}
 	if(array_key_exists('hide_form_message_text', $atts) && $atts['hide_form_message_text'] == "True") {
 		$hide_form_message_text = ' data-hide-message-text="y"';
@@ -122,74 +180,96 @@ function cloudwok_shortcode( $atts ) {
 		$show_powered_by_link = 'data-pby="y"';
 	}
 
-	// custom labels
-	if(array_key_exists('label_add_files_btn', $atts) || array_key_exists('label_dropzone', $atts)) {
-		$customizeDropzone = 'document.querySelector( ".cloudwok-embed .cloudwok-dropzone").addEventListener("DOMNodeInserted", customizeDropzone, false);
-		function customizeDropzone(e) {
-		  if(e.target && e.target.nodeName == "DIV") {
-				';
-		if(array_key_exists('label_add_files_btn', $atts)) {
-			$customizeDropzone = $customizeDropzone . 'document.querySelector(".cloudwok-embed .dropzone span.lead > .fileinput-button > span" ).innerHTML = "' . $atts['label_add_files_btn'] . '";';
-		}
-		if(array_key_exists('label_dropzone', $atts)) {
-			$customizeDropzone = $customizeDropzone . 'document.querySelector(".cloudwok-embed .dropzone span.lead > strong" ).innerHTML = "' . $atts['label_dropzone'] . '";';
-		}
-		$customizeDropzone = $customizeDropzone . '
-	  }}';
+// customization via data-config
+	$customizeDataConfigFlag = false;
+	// init with default values (must do this to prevent duplicate input fields)
+	if(array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True" ) {
+		$wdc->form->name->firstname->optional = true;
+		$customizeDataConfigFlag = true;
 	}
-	if(array_key_exists('label_send_msg_btn', $atts) || array_key_exists('label_send_msg_placeholder', $atts) || array_key_exists('prefill_form_fields', $atts) || array_key_exists('required_firstname', $atts) || array_key_exists('required_lastname', $atts) || array_key_exists('invisible_form_input_name', $atts)) {
-		$customizeMessages = 'document.querySelector( ".cloudwok-embed .cloudwok-upload-message").addEventListener("DOMNodeInserted", customizeMessages, false);
-		function customizeMessages(e) {
-			if(e.target && e.target.nodeName == "DIV") {';
-		if(array_key_exists('label_send_msg_btn', $atts)) {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed .cloudwok-upload-message .btn-start-upload" ).innerHTML = "<i class=\'fa fa-send\'></i> ' . $atts['label_send_msg_btn'] . '";';
-		}
-		if(array_key_exists('label_send_msg_placeholder', $atts)) {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed .cloudwok-upload-message > form > fieldset > div.form-group > div > textarea" ).innerHTML = "' . $atts['label_send_msg_placeholder'] . '";';
-		}
-		if(array_key_exists('label_send_msg_placeholder', $atts)) {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed .cloudwok-upload-message > form > fieldset > div.form-group > div > textarea" ).placeholder = "' . $atts['label_send_msg_placeholder'] . '";';
-		}
-		if(array_key_exists('label_send_email_placeholder', $atts)) {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from]").placeholder = "' . $atts['label_send_email_placeholder'] . '";';
-		}
-		if(array_key_exists('label_send_firstname_placeholder', $atts)) {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]").placeholder = "' . $atts['label_send_firstname_placeholder'] . '";';
-		}
-		if(array_key_exists('label_send_lastname_placeholder', $atts)) {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).placeholder = "' . $atts['label_send_lastname_placeholder'] . '";';
-		}
-		if(array_key_exists('required_firstname', $atts) && $atts['required_firstname']  == "True") {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]" ).required=true;';
-		}
-		if(array_key_exists('required_lastname', $atts) && $atts['required_lastname']  == "True") {
-			$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).required=true;';
-		}
-		// fill e-mail, first name, and last name with wp user values
-		if(array_key_exists('prefill_form_fields', $atts)) {
-      if($wp_user_email && array_key_exists('show_form_input_email', $atts) &&   $atts['show_form_input_email'] == "True") {
-      	$customizeMessages = $customizeMessages .   'document.querySelector(".cloudwok-embed input[name=from]").value = "' .   $wp_user_email . '";';
-      }
-      if($wp_user_firstname && array_key_exists('show_form_input_name', $atts) &&   $atts['show_form_input_name'] == "True") {
-      	$customizeMessages = $customizeMessages .   'document.querySelector(".cloudwok-embed input[name=from_firstname]").value = "'   . $wp_user_firstname . '";';
-      }
-      if($wp_user_lastname && array_key_exists('show_form_input_name', $atts) &&   $atts['show_form_input_name'] == "True") {
-      	$customizeMessages = $customizeMessages .   'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).value = "'   . $wp_user_lastname . '";';
-      }
-	  }
-		// you can also hide the message fields
-		if(array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True" && array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True") {
-				if(array_key_exists('invisible_form_input_name', $atts) && $atts['invisible_form_input_name'] == "True") {
-					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]" ).required=false;';
-					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).required=false;';
-					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed textarea[name=message]" ).required=false;';
-					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).style.display = "none";';
-					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]" ).style.display = "none";';
-					$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed textarea[name=message]" ).style.display = "none";';
-				}
-		}
-		$customizeMessages = $customizeMessages . '
-	  }}';
+	if(array_key_exists('show_form_input_email', $atts) && $atts['show_form_input_email'] == "True") {
+		$wdc->form->email->required = false;
+		$customizeDataConfigFlag = true;
+	}
+	// custom dropzone labels //
+	if(array_key_exists('label_dropzone', $atts)) {
+		$wdc->dropzone->label = $atts['label_dropzone'];
+		$customizeDataConfigFlag = true;
+	}
+	if(array_key_exists('label_add_files_btn', $atts)) {
+		$wdc->dropzone->button  = $atts['label_add_files_btn'] ;
+		$customizeDataConfigFlag = true;
+	}
+	// customize form //
+	// placeholders
+	if(array_key_exists('label_send_firstname_placeholder', $atts)) {
+		$wdc->form->name->firstname->placeholder = $atts['label_send_firstname_placeholder'];
+		$customizeDataConfigFlag = true;
+	}
+	if(array_key_exists('label_send_lastname_placeholder', $atts)) {
+		$wdc->form->name->lastname->placeholder = $atts['label_send_lastname_placeholder'];
+		$customizeDataConfigFlag = true;
+	}
+	if(array_key_exists('label_send_email_placeholder', $atts)) {
+		$wdc->form->email->placeholder = $atts['label_send_email_placeholder'];
+		$customizeDataConfigFlag = true;
+	}
+	if(array_key_exists('label_send_msg_placeholder', $atts)) {
+		$wdc->form->message->placeholder = $atts['label_send_msg_placeholder'];
+		$customizeDataConfigFlag = true;
+	}
+	// required
+	if(array_key_exists('required_firstname', $atts) && $atts['required_firstname']  == "True") {
+		$wdc->form->name->firstname->optional = false;
+		$customizeDataConfigFlag = true;
+	}
+	if(array_key_exists('required_lastname', $atts) && $atts['required_lastname']  == "True") {
+		$wdc->form->name->lastname->optional = false;
+		$customizeDataConfigFlag = true;
+	}
+	// fill e-mail, first name, and last name with wp user values
+	if(array_key_exists('prefill_form_fields', $atts)) {
+		$wdc->form->email->value = $wp_user_email;
+		$wdc->form->name->firstname->value = $wp_user_firstname;
+		$wdc->form->name->lastname->value = $wp_user_lastname;
+		$customizeDataConfigFlag = true;
+	}
+	// you can also hide the message fields
+	if(array_key_exists('show_form_input_name', $atts) && $atts['show_form_input_name'] == "True" && array_key_exists('show_form_input_name', $atts) &&$atts['show_form_input_name'] == "True") {
+			if(array_key_exists('invisible_form_input_name', $atts) && $atts['invisible_form_input_name'] == "True") {
+				$customizeMessages = 'document.querySelector( ".cloudwok-embed .cloudwok-upload-message").addEventListener("DOMNodeInserted", customizeMessages, false);
+				function customizeMessages(e) {
+					if(e.target && e.target.nodeName == "DIV") {';
+				$wdc->form->email->required = false;
+				$wdc->form->name->firstname->optional = true;
+				$wdc->form->name->lastname->optional = true;
+				$wdc->form->message->required = false;
+				$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_lastname]" ).style.display = "none";';
+				$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed input[name=from_firstname]" ).style.display = "none";';
+				$customizeMessages = $customizeMessages . 'document.querySelector(".cloudwok-embed textarea[name=message]" ).style.display = "none";';
+				$customizeMessages = $customizeMessages . '
+				 }}';
+				$customizeDataConfigFlag = true;
+			}
+	}
+	// sucess message customization
+	if(array_key_exists('success_message_title', $atts)) {
+		$wdc->success->message->title = $atts['success_message_title'];
+		$customizeDataConfigFlag = true;
+	}
+	if(array_key_exists('success_message_subtitle', $atts)) {
+		$wdc->success->message->subtitle = $atts['success_message_subtitle'];
+		$customizeDataConfigFlag = true;
+	}
+	if(array_key_exists('success_message_text', $atts)) {
+		$wdc->success->message->text = $atts['success_message_text'];
+		$customizeDataConfigFlag = true;
+	}
+	// END configData code
+	if($customizeDataConfigFlag) {
+		$customizeDataConfig = 'var cloudWokConfig =' . json_encode($wdc) . '
+  document.querySelector(".cloudwok-embed").setAttribute("data-config", JSON.stringify(cloudWokConfig));
+  console.log("cloudWokConfig: " + JSON.stringify(cloudWokConfig));';
 	}
 
 	// Code
@@ -201,6 +281,8 @@ function cloudwok_shortcode( $atts ) {
   '</div>
 
   <script>
+	' . $customizeDataConfig .
+	'
     (function(window, document) {
       var loader = function() {
         var script = document.createElement("script"),

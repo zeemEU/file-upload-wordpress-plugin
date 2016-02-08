@@ -3,8 +3,8 @@ Contributors: markusklems
 Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
-Tested up to: 4.4.1
-Stable tag: 0.4.3
+Tested up to: 4.4.2
+Stable tag: 0.4.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -107,6 +107,10 @@ Since version 0.4.3 of this plugin, via `hide_form_message_text="True"`, you can
 
 `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True" required_firstname="True" required_lastname="True" show_form_input_email="True" hide_form_message_text="True"]`
 
+Since version 0.4.4 of this plugin, via `success_message_title="YOUR OWN TITLE"`, `success_message_subtitle="YOUR OWN SUBTITLE"`, `success_message_text="YOUR OWN TEXT"`, you can customize the message that is shown to your users after a successful file upload:
+
+`[cloudwok wok_id="YOUR_WOK_ID" success_message_title="YOUR OWN TITLE" success_message_subtitle="YOUR OWN SUBTITLE" success_message_text="YOUR OWN TEXT"]`
+
 By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
 
 == Frequently Asked Questions ==
@@ -125,6 +129,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.4.4 =
+You can now use `success_message_title="YOUR OWN TITLE"`, `success_message_subtitle="YOUR OWN SUBTITLE"`, `success_message_text="YOUR OWN TEXT"` to customize the message that is shown to your users after a successful file upload.
 = 0.4.3 =
 You can now use `hide_form_message_text="True"` to hide the message text area from the message form. For example, show user name and email input fields without the message text area: `[cloudwok wok_id="YOUR_WOK_ID" show_form="True" show_form_input_name="True" required_firstname="True" required_lastname="True" show_form_input_email="True" hide_form_message_text="True"]`.
 = 0.4.2 =
