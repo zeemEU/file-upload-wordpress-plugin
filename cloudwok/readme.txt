@@ -130,9 +130,13 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Screenshots ==
 
-1. File-upload form in a WordPress blog post view.
-2. Shortcode that adds a file-upload form to a blog post.
-3. How to install the plugin via the WordPress plugin directory.
+1. Go to https://www.cloudwok.com/developers to generate a customized HTML code of the file-upload widget.
+2. Copy the HTML code.
+3. Paste the HTML code into the text area located at your WordPress admin sidebar (Settings > CloudWok) and click "Save".
+4. Edit your blog post. Copy the shortcode into your blog post text where you want it to show.
+5. Now the file-upload form shows up in your WordPress blog post.
+6. (old/legacy approach) Shortcode that adds a file-upload form to a blog post.
+7. How to install the plugin via the WordPress plugin directory.
 
 == Changelog ==
 
