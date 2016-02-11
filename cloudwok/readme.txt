@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.4.2
-Stable tag: 0.4.4
+Stable tag: 0.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,9 +14,15 @@ File-upload plugin to let visitors of your site upload files into your Dropbox, 
 
 Receive files directly in your Dropbox folder, Google Drive folder, S3 bucket, Box.com folder, or Facebook photo album. With the CloudWok file-upload plugin you can let others upload files to your cloud storage.
 
-Simply add the following shortcode in your blog post or page: `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. There are many options to customize the file-upload plugin. Please take a look at the "Installation" tab for more information how to customize the plugin.
+There are two ways how you can add the CloudWok file-upload widget to your blog posts or pages:
 
-With the CloudWok WordPress plugin, you can embed a cloudwok file-upload form into your own website or blog. Visitors of your website can upload files that are transferred directly into your connected Dropbox folder (or Google Drive folder, ...).
+* **New:** Visit https://www.cloudwok.com/developers to generate a customized HTML embed code. Open the "Settings" menu in your sidebar and click on "CloudWok". Paste the copied HTML embed code into the text area and click "Save". This generates a shortcode, like this one: `[cloudwok ref=1]`. Simply copy and paste the shortcode into your blog post or page and the widget will appear at that place.
+* **Old:** Simply add the following shortcode in your blog post or page: `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. There are many options to customize the file-upload plugin. Please take a look at the "Installation" tab for more information how to customize the plugin.
+
+With the CloudWok WordPress plugin, you can embed a cloudwok file-upload form into your own website or blog. Visitors of your website can upload files that are transferred directly into your connected Dropbox folder (or Google Drive folder, ...). This means:
+
+* No traffic from the file-upload goes through your WordPress blog. You don't need to worry about WordPress file size limitations or the like.
+* You don't need to download the uploaded files from your WordPress blog. They end up directly in your Dropbox, Google Drive, ...
 
 For example, with the CloudWok Wordpress plug-in, you can:
 
@@ -24,7 +30,7 @@ For example, with the CloudWok Wordpress plug-in, you can:
 * Create a project website with password-protected file-upload form, through which you collect project deliverables and submissions from colleagues, collaborators, and business partners.
 * Create a blog where you invite your audience to submit pictures and videos for a contest.
 
-Share your use case with us by sending us a link to your WordPress site at markus@cloudwok.com. We are always happy to hear feedback from our users. If you write a blog post about your CloudWok use case, we grant you extra quota for free. Drop me an e-mail if you would like to participate in the free-extra-quota initiative.
+If you have questions, feedback, or trouble, please contact me via e-mail: markus@cloudwok.com or open a thread in the support forum. Thanks!
 
 == Installation ==
 
@@ -55,7 +61,12 @@ Alternative to the installation method via WordPress plugin directory, as descri
 
 **Use the plug-in:**
 
-Now you can add shortcodes like the following to your pages, blog posts, etc:
+There are two ways how you can add the CloudWok file-upload widget to your blog posts or pages:
+
+* **New:** Visit https://www.cloudwok.com/developers to generate a customized HTML embed code. Open the "Settings" menu in your sidebar and click on "CloudWok". Paste the copied HTML embed code into the text area and click "Save". This generates a shortcode, like this one: `[cloudwok ref=1]`. Simply copy and paste the shortcode into your blog post or page and the widget will appear at that place.
+* **Old:** Simply add the following shortcode in your blog post or page: `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. There are many options to customize the file-upload plugin. Please take a look at the "Installation" tab for more information how to customize the plugin.
+
+The following configurations only apply to the "old" CloudWok shortcode. If you need further customizations, please use the "new" way, as described above.
 
 `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`
 
@@ -115,10 +126,6 @@ By default, a small "powered by" text-link to www.cloudwok.com is disabled. If y
 
 == Frequently Asked Questions ==
 
-* Is it possible to change the default texts and labels?
-
-You can customize texts and labels. Please take a look at this thread: https://wordpress.org/support/topic/custom-text-translation
-
 Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok. Or open a thread in the WordPress support forum for this plugin.
 
 == Screenshots ==
@@ -129,6 +136,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.5.0 =
+New shortcode feature. Create a customized widget via the Settings > CloudWok menu in the admin sidebar. The old shortcode still works but will not be further developed. Please use the new shortcode to customize the CloudWok widget.
 = 0.4.4 =
 You can now use `success_message_title="YOUR OWN TITLE"`, `success_message_subtitle="YOUR OWN SUBTITLE"`, `success_message_text="YOUR OWN TEXT"` to customize the message that is shown to your users after a successful file upload.
 = 0.4.3 =

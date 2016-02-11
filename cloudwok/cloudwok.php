@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.4.4
+Version: 0.5.0
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -100,7 +100,7 @@ function cloudwok_shortcode( $atts ) {
 	// Attributes
 	extract( shortcode_atts(
 		array(
-      'config' => '',
+      'ref' => '',
 			'wok_id' => '',
 			'show_uploads' => True,
 			'show_downloads' => False,
@@ -144,6 +144,19 @@ function cloudwok_shortcode( $atts ) {
 	$customizeDataConfig = '';
 	$customizeDropzone = '';
 	$customizeMessages = '';
+
+  // new feature since 0.5 - simply reference the embed code
+  if(array_key_exists('ref', $atts)) {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'cloudwok';
+    $cloudwok_code_ref = $atts['ref'];
+    $query="SELECT * FROM $table_name WHERE id=$ref";
+    $result=$wpdb->get_results($query);
+    // replace escaped double quotes with normal ones
+    $to_return = str_replace('\"','"', $result[0]->code);
+    $to_return = str_replace("\'","'", $to_return);
+    return $to_return;
+  }
 
   // break if no wok_id was entered
   if(!array_key_exists('wok_id', $atts)) {
@@ -268,8 +281,7 @@ function cloudwok_shortcode( $atts ) {
 	// END configData code
 	if($customizeDataConfigFlag) {
 		$customizeDataConfig = 'var cloudWokConfig =' . json_encode($wdc) . '
-  document.querySelector(".cloudwok-embed").setAttribute("data-config", JSON.stringify(cloudWokConfig));
-  console.log("cloudWokConfig: " + JSON.stringify(cloudWokConfig));';
+  document.querySelector(".cloudwok-embed").setAttribute("data-config", JSON.stringify(cloudWokConfig));';
 	}
 
 	// Code
@@ -302,5 +314,185 @@ function cloudwok_shortcode( $atts ) {
 	return $to_return;
 }
 add_shortcode( 'cloudwok', 'cloudwok_shortcode' );
+
+function cloudwok_activate() {
+  cw_plugin_create_db();
+}
+register_activation_hook( __FILE__, 'cloudwok_activate' );
+
+function cw_plugin_create_db() {
+	global $wpdb;
+	$charset_collate = $wpdb->get_charset_collate();
+	$table_name = $wpdb->prefix . 'cloudwok';
+
+	$sql1 = "CREATE TABLE $table_name (
+		id smallint(5) NOT NULL AUTO_INCREMENT,
+		code varchar(16384) NOT NULL,
+		UNIQUE KEY id (id)
+	) $charset_collate;";
+
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	dbDelta( $sql1 );
+}
+
+function cw_db_get_all() {
+  global $wpdb;
+  $table_name = $wpdb->prefix . 'cloudwok';
+  $query="SELECT * FROM $table_name";
+  $result=$wpdb->get_results($query);
+  $to_return = array();
+  foreach ($result as $row)
+  {
+    $to_return[] = $row->id;
+  }
+  return json_encode($to_return);
+}
+
+/** Step 1. */
+function cw_plugin_menu() {
+	add_options_page( 'Manage CloudWok', 'CloudWok', 'manage_options', 'manage-cloudwok-settings', 'cw_plugin_options' );
+}
+
+/** Step 2  */
+add_action( 'admin_menu', 'cw_plugin_menu' );
+
+/** Step 3. */
+function cw_plugin_options() {
+	if ( !current_user_can( 'manage_options' ) )  {
+		wp_die( __( 'You do not have sufficient permissions to access this page.' ) );
+	}
+  $adminUrl = plugin_dir_url( __FILE__ ) . 'admin.php';
+  $nonce = wp_create_nonce( "cWn0Nc€4tW" );
+  // Add bootstrap css and js
+  echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  ';
+  echo '<div class="container-fluid">';
+  echo '<h2><i class="fa fa-wrench"></i> Manage CloudWok Settings</h2>';
+  echo '<div class="row">';
+  echo '<div class="col-md-6">
+  <h4><button class="btn btn-default" type="button" data-toggle="collapse"    data-target="#cloudwokInfo" aria-expanded="false" aria-controls="cloudwokInfo">
+  <i class="fa fa-info-circle"></i> Info</button> PLEASE ENTER THE EMBED CODE:</h4>';
+  echo '<div class="collapse" id="cloudwokInfo">
+  <div class="well">
+    Please visit <strong><a href="https://www.cloudwok.com/developers" target="_blank">https://www.cloudwok.com/developers</a></strong> to generate a customized embed code of the CloudWok file-upload widget. Find the "HTML code" tab and click on the clipboard icon to copy the code. Then paste the code into the text area below.
+  </div>
+  </div>';
+  echo '<form>
+    <div class="form-group">
+      <textarea class="form-control" rows="16" id="cloudwokEmbedCode">
+      </textarea>
+    </div>
+    <input id="editRef" type="text" style="display:none !important;" />
+    <button id="saveBtn" class="btn btn-primary pull-left"><i class="fa fa-floppy-o"></i> Save</button>
+    <button id="newBtn" class="btn btn-default pull-right">Cancel</button>
+  </form>
+  </div>';
+  echo '<div id="cloudwokEmbedCodeList" class="col-md-6">
+
+  </div>';
+  echo '</div>'; // row
+  echo '</div>'; // container
+  echo '<script type="text/javascript">';
+  echo '
+  function escapeHtml(unsafe) {
+    return unsafe.replace(/&/g, "__amp;");
+  }
+  function unescapeHtml(safe) {
+    return safe.replace(/__amp;/g, "&").replace(/\\\"/g, "\"").replace(/\\\\\'/g, "\'");
+  }
+
+  function appendRefListItem(ref) {
+    jQuery("#cloudwokEmbedCodeList").append( "<div id=\"ecListRow"+ref+"\" class=\"row clickable-row\"><div class=\"col-md-4\"><pre>[cloudwok ref="+ref+"]</pre></div><div class=\"col-md-4\"><button id=\"editBtn"+ref+"\" onclick=\"onEditBtnClick("+ref+")\" class=\"btn btn-primary editBtn\" style=\"margin-right: 5px;\"><i class=\"fa fa-pencil\"></i> Edit</button><button  id=\"deleteBtn"+ref+"\" onclick=\"onDeleteBtnClick("+ref+")\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete</button></div></div></div>" );
+  }
+
+  function onEditBtnClick(ref) {
+    jQuery(".editBtn").removeClass("btn-success").removeClass("btn-primary").addClass("btn-primary");
+    jQuery("#editBtn"+ref).addClass("btn-success").removeClass("btn-primary");
+    jQuery("#cloudwokEmbedCode").val("");
+    jQuery("#editBtn"+ref).prop("disabled", true);
+    jQuery("#cloudwokEmbedCode").prop("placeholder","Loading embed code...");
+    jQuery.ajax({
+        type: "GET",
+        url: "' . $adminUrl . '",
+        data: "cwnonce=' . $nonce . '&ref="+ref,
+        success: function(resp)
+        {
+          jQuery("#cloudwokEmbedCode").prop("placeholder","");
+            var jsonObj = jQuery.parseJSON(resp);
+            jQuery("#cloudwokEmbedCode").val(unescapeHtml(jsonObj.code));
+            jQuery("#editRef").val(jsonObj.id);
+            jQuery("#editBtn"+ref).prop("disabled", false);
+        }
+    });
+  }
+
+  function onDeleteBtnClick(ref) {
+    jQuery("#deleteBtn"+ref).prop("disabled", true);
+    jQuery.ajax({
+        type: "DELETE",
+        url: "' . $adminUrl . '",
+        data: "cwnonce=' . $nonce . '&ref="+ref,
+        success: function(resp)
+        {
+            jQuery("#ecListRow"+ref).remove();
+        }
+    });
+  }
+
+  function create() {
+    var code = escapeHtml(jQuery("#cloudwokEmbedCode").val());
+    jQuery.ajax({
+        type: "POST",
+        url: "' . $adminUrl . '",
+        data: "cwnonce=' . $nonce . '&code="+code,
+        success: function(ref)
+        {
+            appendRefListItem(ref);
+            jQuery("#editRef").val(ref);
+        }
+    });
+  }
+
+  function update() {
+    var ref = jQuery("#editRef").val();
+    var code = escapeHtml(jQuery("#cloudwokEmbedCode").val());
+    jQuery.ajax({
+        type: "POST",
+        url: "' . $adminUrl . '",
+        data: "cwnonce=' . $nonce . '&ref="+ref+"&code="+code,
+        success: function(resp)
+        {
+        }
+    });
+  }
+
+  jQuery( "#saveBtn" ).click(function( event ) {
+    event.preventDefault();
+    if(!jQuery("#editRef").val()) {
+      create();
+    } else {
+      update();
+    }
+  });
+  jQuery( "#newBtn" ).click(function( event ) {
+    event.preventDefault();
+    jQuery("#editRef").val("");
+    jQuery("#cloudwokEmbedCode").val("");
+    jQuery(".editBtn").removeClass("btn-success").removeClass("btn-primary").addClass("btn-primary");
+  });
+
+  jQuery( document ).ready(function() {
+    jQuery("#editRef").val("");
+    var refList = jQuery.parseJSON(JSON.stringify(' . cw_db_get_all() . '));
+    jQuery("#cloudwokEmbedCodeList").append( "<div class=\"row\"><div class=\"col-md-4\"><h4><i class=\"fa fa-code\"></i> SHORTCODE</h4></div></div>" );
+    jQuery.each(refList,function(index,ref) {
+      appendRefListItem(ref);
+    });
+    jQuery("#cloudwokEmbedCode").prop("placeholder","Please enter your embed code here (visit https://www.cloudwok.com/developers to generate your customiezd code)");
+  });';
+  echo '</script>';
+}
 
 ?>
