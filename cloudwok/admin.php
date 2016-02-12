@@ -66,6 +66,8 @@
    }
 
    if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+     $_DELETE = array();
+     parse_str(file_get_contents('php://input'), $_DELETE );
       // delete row
      if(!array_diff(array('cwnonce','ref'), array_keys($_DELETE)) || ! wp_verify_nonce( $_DELETE['cwnonce'], $noncetxt ))
      {
@@ -73,20 +75,8 @@
          $wpdb->delete( $table_name, array( 'id' => $ref ) );
          echo "DELETED "+$ref;
      } else {
-         echo getContent();
+         echo "No/wrong DELETE params or nonce did not verify";
      }
    }
 
-    function getContent()
-    {
-      if (null === $this->content)
-      {
-        if (0 === strlen(trim($this->content = file_get_contents('php://input'))))
-        {
-          $this->content = false;
-        }
-      }
-
-      return $this->content;
-    }
-    ?>
+?>
