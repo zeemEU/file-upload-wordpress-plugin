@@ -445,6 +445,7 @@ function cw_plugin_options() {
             jQuery("#ecListRow"+ref).remove();
             jQuery("#editRef").val("");
             jQuery("#cloudwokEmbedCode").val("");
+            console.log(resp);
         }
     });
   }
