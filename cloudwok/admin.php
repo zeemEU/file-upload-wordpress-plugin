@@ -73,7 +73,20 @@
          $wpdb->delete( $table_name, array( 'id' => $ref ) );
          echo "DELETED "+$ref;
      } else {
-         echo "No/wrong DELETE params or nonce did not verify";
+         echo getContent();
      }
    }
+
+    function getContent()
+    {
+      if (null === $this->content)
+      {
+        if (0 === strlen(trim($this->content = file_get_contents('php://input'))))
+        {
+          $this->content = false;
+        }
+      }
+
+      return $this->content;
+    }
     ?>
