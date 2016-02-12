@@ -122,7 +122,9 @@ Since version 0.4.4 of this plugin, via `success_message_title="YOUR OWN TITLE"`
 
 `[cloudwok wok_id="YOUR_WOK_ID" success_message_title="YOUR OWN TITLE" success_message_subtitle="YOUR OWN SUBTITLE" success_message_text="YOUR OWN TEXT"]`
 
-By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`. Send me a link to your WordPress site with enabled "powered by" link, and I'd be happy to send you a small coupon code gift back: markus@cloudwok.com. Thanks!
+By default, a small "powered by" text-link to www.cloudwok.com is disabled. If you like our plug-in, we would appreciate it if you would enable the link via `[cloudwok wok_id="YOUR_WOK_ID" show_powered_by_link="True"]`.
+
+Since version 0.5 of this plugin, we have added an admin panel to the left-hand sidebar (Settings > CloudWok) where you can customize the layout of the plugin with more flexibility. The old shortcodes still work, however, they will not be further extended with new customization features. The new approach (via Settings admin panel) will be updated in upcoming releases of this plugin.
 
 == Frequently Asked Questions ==
 

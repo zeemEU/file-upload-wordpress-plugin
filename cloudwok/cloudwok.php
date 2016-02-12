@@ -408,24 +408,30 @@ function cw_plugin_options() {
   }
 
   function onEditBtnClick(ref) {
-    jQuery(".editBtn").removeClass("btn-success").removeClass("btn-primary").addClass("btn-primary");
-    jQuery("#editBtn"+ref).addClass("btn-success").removeClass("btn-primary");
-    jQuery("#cloudwokEmbedCode").val("");
-    jQuery("#editBtn"+ref).prop("disabled", true);
-    jQuery("#cloudwokEmbedCode").prop("placeholder","Loading embed code...");
-    jQuery.ajax({
-        type: "GET",
-        url: "' . $adminUrl . '",
-        data: "cwnonce=' . $nonce . '&ref="+ref,
-        success: function(resp)
-        {
-          jQuery("#cloudwokEmbedCode").prop("placeholder","");
-            var jsonObj = jQuery.parseJSON(resp);
-            jQuery("#cloudwokEmbedCode").val(unescapeHtml(jsonObj.code));
-            jQuery("#editRef").val(jsonObj.id);
-            jQuery("#editBtn"+ref).prop("disabled", false);
-        }
-    });
+    if(jQuery("#editBtn"+ref+".btn-success").length == 0) {
+      jQuery(".editBtn").removeClass("btn-success").removeClass("btn-primary").addClass("btn-primary");
+      jQuery("#editBtn"+ref).addClass("btn-success").removeClass("btn-primary");
+      jQuery("#cloudwokEmbedCode").val("");
+      jQuery("#editBtn"+ref).prop("disabled", true);
+      jQuery("#cloudwokEmbedCode").prop("placeholder","Loading embed code...");
+      jQuery.ajax({
+          type: "GET",
+          url: "' . $adminUrl . '",
+          data: "cwnonce=' . $nonce . '&ref="+ref,
+          success: function(resp)
+          {
+            jQuery("#cloudwokEmbedCode").prop("placeholder","");
+              var jsonObj = jQuery.parseJSON(resp);
+              jQuery("#cloudwokEmbedCode").val(unescapeHtml(jsonObj.code));
+              jQuery("#editRef").val(jsonObj.id);
+              jQuery("#editBtn"+ref).prop("disabled", false);
+          }
+      });
+    } else {
+      jQuery("#editBtn"+ref).removeClass("btn-success").addClass("btn-primary");
+      jQuery("#editRef").val("");
+      jQuery("#cloudwokEmbedCode").val("");
+    }
   }
 
   function onDeleteBtnClick(ref) {
@@ -437,6 +443,8 @@ function cw_plugin_options() {
         success: function(resp)
         {
             jQuery("#ecListRow"+ref).remove();
+            jQuery("#editRef").val("");
+            jQuery("#cloudwokEmbedCode").val("");
         }
     });
   }
@@ -451,6 +459,7 @@ function cw_plugin_options() {
         {
             appendRefListItem(ref);
             jQuery("#editRef").val(ref);
+            jQuery("#editBtn"+ref).addClass("btn-success").removeClass("btn-primary");
         }
     });
   }
