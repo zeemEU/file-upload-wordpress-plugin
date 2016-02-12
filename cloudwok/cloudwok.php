@@ -152,6 +152,9 @@ function cloudwok_shortcode( $atts ) {
     $cloudwok_code_ref = $atts['ref'];
     $query="SELECT * FROM $table_name WHERE id=$ref";
     $result=$wpdb->get_results($query);
+    if(!$result || !$result[0] || !$result[0]->code) {
+      return "<p style=\"color: red;\">Sorry, could not embed [cloudwok ref=" . $ref . " ]. Please check that the shortcode looks like this: [cloudwok ref=number] and please check in the Settings > CloudWok admin sidebar that the code has been saved with ref=" . $ref . ".</p>";
+    }
     // replace escaped double quotes with normal ones
     $to_return = str_replace('\"','"', $result[0]->code);
     $to_return = str_replace("\'","'", $to_return);
