@@ -4,7 +4,7 @@ Donate link: http://www.cloudwok.com/
 Tags: upload, file upload, dropbox, google drive, microsoft onedrive, box, s3, facebook, upload form, feedback
 Requires at least: 3.0.0
 Tested up to: 4.4.2
-Stable tag: 0.5.0
+Stable tag: 0.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -142,6 +142,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.5.1 =
+On some custom WordPress installations the settings page does not work if central php config files cannot be accessed. This update helps tracking down and reporting possible issues that occur in these cases.
 = 0.5.0 =
 New shortcode feature. Create a customized widget via the Settings > CloudWok menu in the admin sidebar. The old shortcode still works but will not be further developed. Please use the new shortcode to customize the CloudWok widget.
 = 0.4.4 =

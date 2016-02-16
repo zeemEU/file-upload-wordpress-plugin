@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.5.0
+Version: 0.5.1
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -334,7 +334,19 @@ function cw_plugin_create_db() {
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
-	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+  if (file_exists( ABSPATH . 'wp-admin/includes/upgrade.php' )) {
+	  require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+  } else {
+    // could not find upgrade.php where we expected it to be
+    // trying out some other paths to find it
+    if (file_exists( ABSPATH . '/../wp-admin/includes/upgrade.php' )) {
+  	  require_once( ABSPATH . '/../wp-admin/includes/upgrade.php' );
+    } elseif (file_exists( ABSPATH . '/../../wp-admin/includes/upgrade.php' )) {
+  	  require_once( ABSPATH . '/../../wp-admin/includes/upgrade.php' );
+    } elseif (file_exists( ABSPATH . '/../../../wp-admin/includes/upgrade.php' )) {
+  	  require_once( ABSPATH . '/../../../wp-admin/includes/upgrade.php' );
+    }
+  }
 	dbDelta( $sql1 );
 }
 
@@ -366,6 +378,18 @@ function cw_plugin_options() {
 	}
   $adminUrl = plugin_dir_url( __FILE__ ) . 'admin.php';
   $nonce = wp_create_nonce( "cWn0Nc€4tW" );
+  // check if wp-config.php and wp-includes/wp-db.php files can be found
+  define('MYPATH', dirname(__FILE__));
+  if (!file_exists( $_SERVER['DOCUMENT_ROOT'] . '/wp-config.php') && !file_exists( MYPATH . '/../../../wp-config.php' ) && !file_exists( MYPATH . '/../../wp-config.php' ) && !file_exists( MYPATH . '/../wp-config.php' ) && !file_exists( MYPATH . '/wp-config.php' )) {
+    echo '<p style="color:red;">Warning: wp-config.php could not be found at ' . $_SERVER['DOCUMENT_ROOT'] . '/wp-config.php' . ' or sub paths of ' . MYPATH . '. The CloudWok settings page might therefore not work correctly. Please send an e-mail with this warning to markus@cloudwok.com and ask for a solution of the issue.</p>';
+  }
+  if (!file_exists( $_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php') && !file_exists( MYPATH . '/../../../wp-includes/wp-db.php' ) && !file_exists( MYPATH . '/../../wp-includes/wp-db.php' ) && !file_exists( MYPATH . '/../wp-includes/wp-db.php' ) && !file_exists( MYPATH . '/wp-includes/wp-db.php' )) {
+    echo '<p style="color:red;">Warning: wp-includes/wp-db.php could not be found at ' . $_SERVER['DOCUMENT_ROOT'] . '/wp-includes/wp-db.php' . ' or sub paths of ' . MYPATH . '. The CloudWok settings page might therefore not work correctly. Please send an e-mail with this warning to markus@cloudwok.com and ask for a solution of the issue.</p>';
+  }
+  if (!file_exists( ABSPATH . 'wp-admin/includes/upgrade.php' ) && !file_exists( ABSPATH . '/../wp-admin/includes/upgrade.php' ) && !file_exists( ABSPATH . '/../../wp-admin/includes/upgrade.php' ) && !file_exists( ABSPATH . '/../../../wp-admin/includes/upgrade.php' )) {
+    echo '<p style="color:red;">Warning: wp-admin/includes/upgrade.php could not be found at ' . ABSPATH . 'wp-admin/includes/upgrade.php' . ' or sub paths. The CloudWok settings page might therefore not work correctly. Please send an e-mail with this warning to markus@cloudwok.com and ask for a solution of the issue.</p>';
+  }
+
   // Add bootstrap css and js
   echo '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
@@ -448,7 +472,6 @@ function cw_plugin_options() {
             jQuery("#ecListRow"+ref).remove();
             jQuery("#editRef").val("");
             jQuery("#cloudwokEmbedCode").val("");
-            console.log(resp);
         }
     });
   }
@@ -503,7 +526,7 @@ function cw_plugin_options() {
     jQuery.each(refList,function(index,ref) {
       appendRefListItem(ref);
     });
-    jQuery("#cloudwokEmbedCode").prop("placeholder","Please enter your embed code here (visit https://www.cloudwok.com/developers to generate your customiezd code)");
+    jQuery("#cloudwokEmbedCode").prop("placeholder","Please enter your embed code here (visit https://www.cloudwok.com/developers to generate your customized code)");
   });';
   echo '</script>';
 }
