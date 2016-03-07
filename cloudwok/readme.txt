@@ -128,6 +128,10 @@ Since version 0.5 of this plugin, we have added an admin panel to the left-hand 
 
 == Frequently Asked Questions ==
 
+Q1: After I upgrade from an earlier version of the plugin to version 0.5+ the new embedding option via the "Settings" menu does not work because the embed code does not get saved (or the embed code [cloudwok ref=0] is generated, which does not work).
+
+A1: Please try the following: Deactivate the plugin, and then activate it again. If you are still unable to save the embed code, please send us a message or open a thread in the support forum.
+
 Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok. Or open a thread in the WordPress support forum for this plugin.
 
 == Screenshots ==
@@ -142,6 +146,8 @@ Send us an e-mail if you have an issue: markus@cloudwok.com or a tweet @cloudwok
 
 == Changelog ==
 
+= 0.5.2 =
+Increase default column size to 65536 bytes (characters) so that even very long embed codes can be saved.
 = 0.5.1 =
 On some custom WordPress installations the settings page does not work if central php config files cannot be accessed. This update helps tracking down and reporting possible issues that occur in these cases.
 = 0.5.0 =

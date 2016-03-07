@@ -3,7 +3,7 @@
 Plugin Name: CloudWok
 Plugin URI: http://www.cloudwok.com
 Description: CloudWok enables you to let your website visitors upload files directly into a Dropbox, Google Drive, Amazon S3, Box.com, or other cloud storage folder that you own.
-Version: 0.5.1
+Version: 0.5.2
 Author: CloudWok
 Author Email: info@cloudwok.com
 License: GPL2
@@ -330,7 +330,7 @@ function cw_plugin_create_db() {
 
 	$sql1 = "CREATE TABLE $table_name (
 		id smallint(5) NOT NULL AUTO_INCREMENT,
-		code varchar(16384) NOT NULL,
+		code varchar(65536) NOT NULL,
 		UNIQUE KEY id (id)
 	) $charset_collate;";
 
